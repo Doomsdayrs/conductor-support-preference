@@ -68,7 +68,7 @@ class MultiSelectListPreferenceDialogController : PreferenceDialogController() {
 			checkedItems[i] = mNewValues.contains(mEntryValues[i].toString())
 		}
 		builder.setMultiChoiceItems(mEntries, checkedItems
-		) { dialog, which, isChecked ->
+		) { _, which, isChecked ->
 			mPreferenceChanged = if (isChecked) {
 				mPreferenceChanged or mNewValues.add(
 						mEntryValues[which].toString())

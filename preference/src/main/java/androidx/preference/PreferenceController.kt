@@ -260,9 +260,11 @@ abstract class PreferenceController : Controller, OnDisplayPreferenceDialogListe
 			throw RuntimeException("Content has view with id attribute "
 					+ "'android.R.id.list_container' that is not a ViewGroup class")
 		}
-		val listView: RecyclerView = onCreateRecyclerView(themedInflater, rawListContainer,
-				savedInstanceState)
-				?: throw RuntimeException("Could not create RecyclerView")
+		val listView: RecyclerView = onCreateRecyclerView(
+				themedInflater,
+				rawListContainer,
+				savedInstanceState
+		)
 		this.listView = listView
 		listView.addItemDecoration(mDividerDecoration!!)
 		setDivider(divider)
@@ -304,7 +306,7 @@ abstract class PreferenceController : Controller, OnDisplayPreferenceDialogListe
 		mDividerDecoration?.setDividerHeight(height)
 	}
 
-	fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+	fun onViewCreated(@Suppress("UNUSED_PARAMETER") view: View?, savedInstanceState: Bundle?) {
 		savedInstanceState?.getBundle(PREFERENCES_TAG)?.let {
 			val preferenceScreen = preferenceScreen
 			preferenceScreen?.restoreHierarchyState(it)
@@ -472,15 +474,12 @@ abstract class PreferenceController : Controller, OnDisplayPreferenceDialogListe
 	fun onCreateRecyclerView(
 			inflater: LayoutInflater,
 			parent: ViewGroup,
-			savedInstanceState: Bundle?
+			@Suppress("UNUSED_PARAMETER") savedInstanceState: Bundle?
 	): RecyclerView {
 		// If device detected is Auto, use Auto's custom layout that contains a custom ViewGroup
 		// wrapping a RecyclerView
 		if (mStyledContext!!.packageManager.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE)) {
-			val recyclerView: RecyclerView = parent.findViewById(R.id.recycler_view)
-			if (recyclerView != null) {
-				return recyclerView
-			}
+			return parent.findViewById(R.id.recycler_view)
 		}
 		val recyclerView = inflater
 				.inflate(R.layout.preference_recyclerview, parent, false) as RecyclerView

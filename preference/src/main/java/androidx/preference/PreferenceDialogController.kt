@@ -131,7 +131,7 @@ abstract class PreferenceDialogController : Controller(), DialogInterface.OnClic
 		}
 	}
 
-	fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+	fun onCreateDialog(@Suppress("UNUSED_PARAMETER") savedInstanceState: Bundle?): Dialog {
 		val context: Context? = activity
 		mWhichButtonClicked = DialogInterface.BUTTON_NEGATIVE
 		val builder = AlertDialog.Builder(context!!)
